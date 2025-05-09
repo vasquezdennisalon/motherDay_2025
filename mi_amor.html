@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Carta del Día de las Madres</title>
+    <style>
+        body,
+        div,
+        h1,
+        h2,
+        form,
+        fieldset,
+        input,
+        textarea,
+        footer,
+        p {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: none;
+        }
+
+        body {
+            -webkit-perspective: 800px;
+            background-color: #ffebee;
+            color: #7c7873;
+            -webkit-animation: bugfix infinite 1s;
+        }
+
+        @-webkit-keyframes bugfix {
+            from {
+                padding: 0;
+            }
+
+            to {
+                padding: 0;
+            }
+        }
+
+        p {
+            font-family: "Arvo", serif;
+            font-size: 20px;
+            text-shadow: 0 1px 0 #fff;
+
+        }
+
+        p.instruct {
+            margin-left: 90px;
+        }
+
+        figure {
+            font-family: "Arvo", serif;
+            font-size: 20px;
+            text-shadow: 0 1px 0 #fff;
+        }
+
+        figcaption {
+            margin-left: 40px;
+            line-height: 1px;
+        }
+
+        #wrap {
+            width: 530px;
+            height: 1000px;
+            margin: 117px auto 20px;
+        }
+
+        h1 {
+            font-family: "Varela Round", sans-serif;
+            font-size: 36px;
+            margin: 80px 0;
+            text-align: center;
+            text-shadow: 0 1px 0 #fff;
+        }
+
+        #letter_wrap {
+            overlay: hidden;
+            height: 560px;
+            position: relative;
+            top: 0px;
+            -webkit-transition: all 1s ease-in-out;
+            -moz-transition: all 1s ease-in-out;
+            -o-transition: all 1s ease-in-out;
+            transition: all 1s ease-in-out;
+        }
+
+        #back {
+            position: absolute;
+            bottom: 128px;
+            left: 0px;
+            background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/460875/before1.png");
+            width: 528px;
+            height: 132px;
+        }
+
+        #flap {
+            position: absolute;
+            bottom: 65px;
+            left: 0px;
+            width: 530px;
+            height: 390px;
+            -webkit-transform-style: preserve-3d;
+            z-index: 5;
+            -webkit-transition: all 1.5s 1s linear;
+        }
+
+        #flap>div {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        #open_flap {
+            top: 195px;
+            background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/460875/flap.png") no-repeat;
+            -webkit-transform: rotateY(-180deg);
+        }
+
+        #closed_flap {
+            top: 0%;
+            background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/460875/flap_closed.png") no-repeat 0 195px;
+        }
+
+        #front {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/460875/after.png");
+            width: 530px;
+            height: 260px;
+        }
+
+        .checkbox {
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            left: 0;
+            width: 70%;
+            height: 70%;
+            z-index: 100;
+        }
+
+        #checkbox:checked+#letter_wrap {
+            height: 776px;
+            top: -200px;
+            -webkit-transition: all 1s ease-in-out 2s;
+            -moz-transition: all 1s ease-in-out 2s;
+            -o-transition: all 1s ease-in-out 2s;
+            transition: all 1s ease-in-out 2s;
+        }
+
+        #letter {
+            -webkit-transition: all 1s ease-in-out;
+            -moz-transition: all 1s ease-in-out;
+            -o-transition: all 1s ease-in-out;
+            transition: all 1s ease-in-out;
+            background: #ffc url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/460875/letter_bg.png");
+            position: relative;
+            top: 200px;
+            overlay: hidden;
+            height: 90px;
+            width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #fff;
+            border-radius: 3px;
+            -webkit-box-shadow: 0px 0px 3px #9d9d9d, inset 0px 0px 27px #fff;
+            -moz-box-shadow: 0px 0px 3px #9d9d9d, inset 0px 0px 14px #fff;
+            box-shadow: 0px 0px 3px #9d9d9d, inset 0px 0px 27px #fff;
+        }
+
+        #checkbox:checked+#letter_wrap>#flap {
+            -webkit-transition: all 2s linear;
+            transform: rotateX(180deg);
+            -webkit-transform: rotateX(180deg);
+            z-index: -1;
+        }
+
+        #checkbox:checked+#letter_wrap>#letter {
+            height: 300px;
+            -webkit-transition: all 1s ease-in-out 2s;
+            -moz-transition: all 1s ease-in-out 2s;
+            -o-transition: all 1s ease-in-out 2s;
+            transition: all 1s ease-in-out 2s;
+        }
+
+        #checkbox:checked+#letter_wrap>#letter>p {
+            opacity: 1;
+            -webkit-transition: opacity 1s ease-in-out 2s;
+            -moz-transition: opacity 1s ease-in-out 2s;
+            -o-transition: opacity 1s ease-in-out 2s;
+            transition: opacity 1s ease-in-out 2s;
+        }
+
+        .rose {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            top: 75%;
+            left: 50%;
+            margin-left: -50px;
+            margin-top: -50px;
+        }
+
+        .rose+span {
+            position: absolute;
+            font-family: "Montserrat", san-serif;
+            font-weight: normal;
+            font-size: 14px;
+            color: #64b5ce;
+            text-transform: uppercase;
+            text-align: right;
+            width: 100px;
+            height: 20px;
+            line-height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -50px;
+            margin-top: 80px;
+        }
+
+        .rose>.petal:nth-child(1) {
+            z-index: 29;
+            transition: transform 1s;
+            transform: scale(0.02, 0.02) rotate(80deg);
+        }
+
+        .rose:hover>.petal:nth-child(1) {
+            transform: scale(0.06, 0.06) rotate(83deg);
+        }
+
+        .rose>.petal:nth-child(2) {
+            z-index: 28;
+            transition: transform 1s;
+            transform: scale(0.04, 0.04) rotate(160deg);
+        }
+
+        .rose:hover>.petal:nth-child(2) {
+            transform: scale(0.12, 0.12) rotate(166deg);
+        }
+
+        .rose>.petal:nth-child(3) {
+            z-index: 27;
+            transition: transform 1s;
+            transform: scale(0.06, 0.06) rotate(240deg);
+        }
+
+        .rose:hover>.petal:nth-child(3) {
+            transform: scale(0.18, 0.18) rotate(249deg);
+        }
+
+        .rose>.petal:nth-child(4) {
+            z-index: 26;
+            transition: transform 1s;
+            transform: scale(0.08, 0.08) rotate(320deg);
+        }
+
+        .rose:hover>.petal:nth-child(4) {
+            transform: scale(0.24, 0.24) rotate(332deg);
+        }
+
+        .rose>.petal:nth-child(5) {
+            z-index: 25;
+            transition: transform 1s;
+            transform: scale(0.1, 0.1) rotate(400deg);
+        }
+
+        .rose:hover>.petal:nth-child(5) {
+            transform: scale(0.3, 0.3) rotate(415deg);
+        }
+
+        .rose>.petal:nth-child(6) {
+            z-index: 24;
+            transition: transform 1s;
+            transform: scale(0.12, 0.12) rotate(480deg);
+        }
+
+        .rose:hover>.petal:nth-child(6) {
+            transform: scale(0.36, 0.36) rotate(498deg);
+        }
+
+        .rose>.petal:nth-child(7) {
+            z-index: 23;
+            transition: transform 1s;
+            transform: scale(0.14, 0.14) rotate(560deg);
+        }
+
+        .rose:hover>.petal:nth-child(7) {
+            transform: scale(0.42, 0.42) rotate(581deg);
+        }
+
+        .rose>.petal:nth-child(8) {
+            z-index: 22;
+            transition: transform 1s;
+            transform: scale(0.16, 0.16) rotate(640deg);
+        }
+
+        .rose:hover>.petal:nth-child(8) {
+            transform: scale(0.48, 0.48) rotate(664deg);
+        }
+
+        .rose>.petal:nth-child(9) {
+            z-index: 21;
+            transition: transform 1s;
+            transform: scale(0.18, 0.18) rotate(720deg);
+        }
+
+        .rose:hover>.petal:nth-child(9) {
+            transform: scale(0.54, 0.54) rotate(747deg);
+        }
+
+        .rose>.petal:nth-child(10) {
+            z-index: 20;
+            transition: transform 1s;
+            transform: scale(0.2, 0.2) rotate(800deg);
+        }
+
+        .rose:hover>.petal:nth-child(10) {
+            transform: scale(0.6, 0.6) rotate(830deg);
+        }
+
+        .rose>.petal:nth-child(11) {
+            z-index: 19;
+            transition: transform 1s;
+            transform: scale(0.22, 0.22) rotate(880deg);
+        }
+
+        .rose:hover>.petal:nth-child(11) {
+            transform: scale(0.66, 0.66) rotate(913deg);
+        }
+
+        .rose>.petal:nth-child(12) {
+            z-index: 18;
+            transition: transform 1s;
+            transform: scale(0.24, 0.24) rotate(960deg);
+        }
+
+        .rose:hover>.petal:nth-child(12) {
+            transform: scale(0.72, 0.72) rotate(996deg);
+        }
+
+        .rose>.petal:nth-child(13) {
+            z-index: 17;
+            transition: transform 1s;
+            transform: scale(0.26, 0.26) rotate(1040deg);
+        }
+
+        .rose:hover>.petal:nth-child(13) {
+            transform: scale(0.78, 0.78) rotate(1079deg);
+        }
+
+        .rose>.petal:nth-child(14) {
+            z-index: 16;
+            transition: transform 1s;
+            transform: scale(0.28, 0.28) rotate(1120deg);
+        }
+
+        .rose:hover>.petal:nth-child(14) {
+            transform: scale(0.84, 0.84) rotate(1162deg);
+        }
+
+        .rose>.petal:nth-child(15) {
+            z-index: 15;
+            transition: transform 1s;
+            transform: scale(0.3, 0.3) rotate(1200deg);
+        }
+
+        .rose:hover>.petal:nth-child(15) {
+            transform: scale(0.9, 0.9) rotate(1245deg);
+        }
+
+        .rose>.petal:nth-child(16) {
+            z-index: 14;
+            transition: transform 1s;
+            transform: scale(0.32, 0.32) rotate(1280deg);
+        }
+
+        .rose:hover>.petal:nth-child(16) {
+            transform: scale(0.96, 0.96) rotate(1328deg);
+        }
+
+        .rose>.petal:nth-child(17) {
+            z-index: 13;
+            transition: transform 1s;
+            transform: scale(0.34, 0.34) rotate(1360deg);
+        }
+
+        .rose:hover>.petal:nth-child(17) {
+            transform: scale(1.02, 1.02) rotate(1411deg);
+        }
+
+        .rose>.petal:nth-child(18) {
+            z-index: 12;
+            transition: transform 1s;
+            transform: scale(0.36, 0.36) rotate(1440deg);
+        }
+
+        .rose:hover>.petal:nth-child(18) {
+            transform: scale(1.08, 1.08) rotate(1494deg);
+        }
+
+        .rose>.petal:nth-child(19) {
+            z-index: 11;
+            transition: transform 1s;
+            transform: scale(0.38, 0.38) rotate(1520deg);
+        }
+
+        .rose:hover>.petal:nth-child(19) {
+            transform: scale(1.14, 1.14) rotate(1577deg);
+        }
+
+        .rose>.petal:nth-child(20) {
+            z-index: 10;
+            transition: transform 1s;
+            transform: scale(0.4, 0.4) rotate(1600deg);
+        }
+
+        .rose:hover>.petal:nth-child(20) {
+            transform: scale(1.2, 1.2) rotate(1660deg);
+        }
+
+        .rose>.petal:nth-child(21) {
+            z-index: 9;
+            transition: transform 1s;
+            transform: scale(0.42, 0.42) rotate(1680deg);
+        }
+
+        .rose:hover>.petal:nth-child(21) {
+            transform: scale(1.26, 1.26) rotate(1743deg);
+        }
+
+        .rose>.petal:nth-child(22) {
+            z-index: 8;
+            transition: transform 1s;
+            transform: scale(0.44, 0.44) rotate(1760deg);
+        }
+
+        .rose:hover>.petal:nth-child(22) {
+            transform: scale(1.32, 1.32) rotate(1826deg);
+        }
+
+        .rose>.petal:nth-child(23) {
+            z-index: 7;
+            transition: transform 1s;
+            transform: scale(0.46, 0.46) rotate(1840deg);
+        }
+
+        .rose:hover>.petal:nth-child(23) {
+            transform: scale(1.38, 1.38) rotate(1909deg);
+        }
+
+        .rose>.petal:nth-child(24) {
+            z-index: 6;
+            transition: transform 1s;
+            transform: scale(0.48, 0.48) rotate(1920deg);
+        }
+
+        .rose:hover>.petal:nth-child(24) {
+            transform: scale(1.44, 1.44) rotate(1992deg);
+        }
+
+        .rose>.petal:nth-child(25) {
+            z-index: 5;
+            transition: transform 1s;
+            transform: scale(0.5, 0.5) rotate(2000deg);
+        }
+
+        .rose:hover>.petal:nth-child(25) {
+            transform: scale(1.5, 1.5) rotate(2075deg);
+        }
+
+        .rose>.petal:nth-child(26) {
+            z-index: 4;
+            transition: transform 1s;
+            transform: scale(0.52, 0.52) rotate(2080deg);
+        }
+
+        .rose:hover>.petal:nth-child(26) {
+            transform: scale(1.56, 1.56) rotate(2158deg);
+        }
+
+        .rose>.petal:nth-child(27) {
+            z-index: 3;
+            transition: transform 1s;
+            transform: scale(0.54, 0.54) rotate(2160deg);
+        }
+
+        .rose:hover>.petal:nth-child(27) {
+            transform: scale(1.62, 1.62) rotate(2241deg);
+        }
+
+        .rose>.petal:nth-child(28) {
+            z-index: 2;
+            transition: transform 1s;
+            transform: scale(0.56, 0.56) rotate(2240deg);
+        }
+
+        .rose:hover>.petal:nth-child(28) {
+            transform: scale(1.68, 1.68) rotate(2324deg);
+        }
+
+        .rose>.petal:nth-child(29) {
+            z-index: 1;
+            transition: transform 1s;
+            transform: scale(0.58, 0.58) rotate(2320deg);
+        }
+
+        .rose:hover>.petal:nth-child(29) {
+            transform: scale(1.74, 1.74) rotate(2407deg);
+        }
+
+        .rose>.petal:nth-child(30) {
+            z-index: 0;
+            transition: transform 1s;
+            transform: scale(0.6, 0.6) rotate(2400deg);
+        }
+
+        .rose:hover>.petal:nth-child(30) {
+            transform: scale(1.8, 1.8) rotate(2490deg);
+        }
+
+        .rose .text {
+            position: absolute;
+            height: 70px;
+            width: 150px;
+            top: 50%;
+            margin-left: -25px;
+            margin-top: -25px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .rose .text span {
+            display: block;
+            width: 100%;
+            line-height: 30px;
+            text-align: right;
+            color: #290000;
+        }
+
+        .rose .text span:nth-child(1) {
+            font-size: 30px;
+            font-family: "Montserrat", san-serif;
+        }
+
+        .rose .text span:nth-child(2) {
+            font-size: 44px;
+            font-family: "Arizonia", serif;
+        }
+
+        .rose:hover>.text {
+            opacity: 1;
+        }
+
+        .rose:before,
+        .rose:after {
+            content: '';
+            display: block;
+            border: 5px solid transparent;
+            border-radius: 100%;
+            width: 170px;
+            height: 190px;
+            background: transparent;
+            position: absolute;
+        }
+
+        .rose:before {
+            top: 30px;
+            left: -18px;
+        }
+
+        .rose:after {
+            top: -30px;
+            left: -120px;
+            height: 200px;
+        }
+
+        .rose .petal {
+            left: 50%;
+            margin-left: -50px;
+            margin-top: -50px;
+            transform-origin: bottom center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .rose .petal,
+        .rose .petal:before {
+            position: absolute;
+        }
+
+        .rose .petal:before {
+            display: block;
+            content: "";
+            background-color: #8b0000;
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjAlIiBjeT0iMTAwJSIgcj0iOTUlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNTIwMDAwIi8+PHN0b3Agb2Zmc2V0PSI3MCUiIHN0b3AtY29sb3I9IiM1MjAwMDAiLz48c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iIzhiMDAwMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+            background-size: 100%;
+            background-image: -moz-radial-gradient(bottom left, ellipse cover, #520000 0%, #520000 70%, #8b0000 95%);
+            background-image: -webkit-radial-gradient(bottom left, ellipse cover, #520000 0%, #520000 70%, #8b0000 95%);
+            background-image: radial-gradient(ellipse cover at bottom left, #520000 0%, #520000 70%, #8b0000 95%);
+            border-top-left-radius: 50% 35%;
+            border-bottom-right-radius: 35% 50%;
+            border-top-right-radius: 45%;
+            border-bottom-left-radius: 10%;
+            transform: rotate(-45deg);
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrap">
+        <h1>Feliz día de la madre</h1>
+        <p class="instruct"><strong>Haz clic sobre el sobre.</strong></p>
+        <input type="checkbox" id="checkbox" class="checkbox">
+        <div id="letter_wrap">
+            <div class='rose'>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+                <div class='petal'></div>
+            </div>
+            <label for="checkbox" class="handle" onclick></label>
+            <div id="back"></div>
+            <div id="flap">
+                <div id="closed_flap"></div>
+                <div id="open_flap"></div>
+            </div>
+            <div id="letter">
+                <p>Mi amor,</p>
+                </br>
+                <p><em>En este Día de la Madre, quiero decirte cuánto te amo y lo agradecido que estoy por tenerte en mi
+                        vida. Eres una madre increíble y una mujer maravillosa. Gracias por tu amor, tu ternura y por
+                        todo lo que haces por nuestra familia.
+
+                        Eres mi alegría, mi fuerza y mi bendición diaria. No podría imaginar esta vida sin ti.
+
+                        Feliz Día de la Madre, mi amor.</em></p>
+                </br>
+            </div>
+            <div id="front"></div>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            const envelope = document.querySelector('.envelope');
+            if (!envelope.classList.contains('open')) {
+                envelope.classList.add('open');
+                releaseHearts();
+            }
+        }
+
+        function releaseHearts() {
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = (160 + (Math.random() * 100 - 50)) + 'px'; // center area
+                heart.style.bottom = '60px';
+                heart.style.background = getRandomColor();
+                heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    //heart.remove();
+                }, 4000);
+            }
+        }
+
+        function getRandomColor() {
+            const colors = ['#ff4d6d', '#ff8fa3', '#ffccd5', '#f06292', '#ffb6b9'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+
+</body>
+
+</html>
